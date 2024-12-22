@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: photo-gallery-backend
+  name: photo-gallery-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-gallery-backend
+  template:
+    metadata:
+      labels:
+        app: photo-gallery-backend
+    spec:
+      containers:
+        - image: gitlab.se.ifmo.ru:5050/maria_git/photo_gallery_backend:latest
+          name: backend
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always

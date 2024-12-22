@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: photo-gallery-frontend
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 4200
+      targetPort: 80
+      nodePort: 30100
+  selector:
+    app: photo-gallery-frontend

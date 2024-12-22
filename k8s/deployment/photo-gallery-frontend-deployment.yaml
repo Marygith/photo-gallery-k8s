@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: photo-gallery-frontend
+  name: photo-gallery-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-gallery-frontend
+  template:
+    metadata:
+      labels:
+        app: photo-gallery-frontend
+    spec:
+      containers:
+        - image: gitlab.se.ifmo.ru:5050/maria_git/photo-gallery-frontend:latest
+          imagePullPolicy: Always
+          name: frontend
+          ports:
+            - containerPort: 80
+              protocol: TCP
+#          env:
+#            - name: ENV_API_URL
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: frontend-config
+#                  key: ENV_API_URL
+#          command: [ "/bin/sh" ]
+#          args:
+#            - "-c"
+#            - >
+#              echo "<script>window.env = { API_URL: '$ENV_API_URL' }</script>" > /usr/share/nginx/html/env.js &&
+#              nginx -g 'daemon off;'
+      restartPolicy: Always
