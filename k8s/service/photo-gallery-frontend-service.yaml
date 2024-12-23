@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: photo-gallery-frontend
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 4200
       targetPort: 80
-      nodePort: 30100
   selector:
     app: photo-gallery-frontend
+    tier: frontend

@@ -5,22 +5,13 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
-    - host: frontend.photo-gallery.local
-      http:
+    - http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: photo-gallery-frontend
-                port:
-                  number: 4200
-    - host: backend.photo-gallery.local
-      http:
-        paths:
-          - path: /
+          - path: /photo-gallery-backend(/|$)(.*)
             pathType: Prefix
             backend:
               service:

@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: photo-gallery-backend
+    tier: backend
   ports:
     - protocol: TCP
       port: 8080

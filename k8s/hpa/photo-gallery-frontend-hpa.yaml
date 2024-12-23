@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: photo-gallery-frontend
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: photo-gallery-frontend
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 15

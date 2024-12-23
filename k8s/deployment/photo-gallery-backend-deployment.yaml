@@ -13,10 +13,18 @@ spec:
     metadata:
       labels:
         app: photo-gallery-backend
+        tier: backend
     spec:
       containers:
         - image: gitlab.se.ifmo.ru:5050/maria_git/photo_gallery_backend:latest
           name: backend
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1"
           ports:
             - containerPort: 8080
               protocol: TCP

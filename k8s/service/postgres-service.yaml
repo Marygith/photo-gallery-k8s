@@ -9,3 +9,47 @@ spec:
       targetPort: 5432
   selector:
     app: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          env:
+            - name: POSTGRES_DB
+              value: photo_gallery_db
+            - name: POSTGRES_PASSWORD
+              value: mypassword
+            - name: POSTGRES_USER
+              value: myuser
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+              name: postgres
+#          volumeMounts:
+#            - name: postgres-pv-claim
+#              mountPath: /var/lib/postgresql/data
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: postgres-pv-claim
+#      spec:
+#        accessModes:
+#          - ReadWriteOnce
+#        storageClassName: "my-storage-class"
+#        resources:
+#          requests:
+#            storage: 50Mi

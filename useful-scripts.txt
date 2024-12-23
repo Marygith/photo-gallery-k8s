@@ -1,0 +1,9 @@
+//install helm metrics provider (from C:\Users\maria\cloud-terraform\kuber dir)
+helm install --namespace default --set yandexMetrics.folderId=b1gjrgvil6pq5ah7547d --set window=5d10h30m20s --set-file yandexMetrics.token.serviceAccountJson=sa-key.json --set yandexMetrics.downsampling.gapFilling=PREVIOUS --set yandexMetrics.downsampling.maxPoints=20 --set yandexMetrics.downsampling.gridInterval=10 metric-provider ./metric-provider/
+
+
+//get metrics provider script
+Get-Content sa-key.json | helm registry login cr.yandex --username 'json_key' --password-stdin; helm pull oci://cr.yandex/yc-marketplace/yandex-cloud/metric-provider/chart/metric-provider --version 0.1.13 --untar
+
+//create load for hpa testing
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://photo-gallery-backend:8080/api/images; done"
